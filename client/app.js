@@ -1,12 +1,3 @@
-const selectors = {
-  loginForm: "welcome-form",
-  messagesSection: "messages-section",
-  messagesList: "messages-list",
-  addMessageForm: "add-messages-form",
-  userNameInput: "username",
-  messageContentInput: "message-content",
-};
-
 const socket = io();
 
 socket.on("message", ({ author, content }) => addMessage(author, content));
@@ -17,6 +8,17 @@ socket.on("userDisconnect", (name) =>
   addMessage("Chat Bot", `${name} has left the conversation... :(`)
 );
 
+const selectors = {
+  loginForm: "welcome-form",
+  messagesSection: "messages-section",
+  messagesList: "messages-list",
+  addMessageForm: "add-messages-form",
+  userNameInput: "username",
+  messageContentInput: "message-content",
+};
+
+let userName;
+
 const loginForm = document.getElementById(selectors.loginForm);
 const messagesSection = document.getElementById(selectors.messagesSection);
 const messagesList = document.getElementById(selectors.messagesList);
@@ -25,8 +27,6 @@ const userNameInput = document.getElementById(selectors.userNameInput);
 const messageContentInput = document.getElementById(
   selectors.messageContentInput
 );
-
-let userName;
 
 const login = (e) => {
   e.preventDefault();
@@ -61,13 +61,10 @@ const sendMessage = (e) => {
   let messageContent = messageContentInput.value;
 
   if (!messageContent.length) {
-    alert("Type your message");
+    alert("You have to type something!");
   } else {
     addMessage(userName, messageContent);
-    socket.emit("message", {
-      author: userName,
-      content: messageContent,
-    });
+    socket.emit("message", { author: userName, content: messageContent });
     messageContentInput.value = "";
   }
 };
