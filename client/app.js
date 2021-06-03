@@ -45,11 +45,11 @@ function addMessage(author, content) {
   message.classList.add("message");
   message.classList.add("message--received");
   if (author === userName) message.classList.add("message--self");
-  message.innerHTML = `  
+  message.innerHTML = `
     <h3 class="message__author">${userName === author ? "You" : author}</h3>
-          <div class=${
-            author == "Chat Bot" ? "message_content-bot" : "message_content"
-          }>
+    <div class=${
+      author == "Chat Bot" ? "message_content-bot" : "message_content"
+    }>
       ${content}
     </div>
   `;
