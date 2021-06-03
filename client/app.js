@@ -47,11 +47,11 @@ const sendMessage = (e) => {
   e.preventDefault();
   let messageContent = messageContentInput.value;
 
-  if (addMessageForm.value.length > 0) {
-    addMessage(userName, messageContent);
-    messageContent = "";
-  } else {
+  if (!messageContent.length) {
     alert("Type your message");
+  } else {
+    addMessage(userName, messageContent);
+    messageContentInput.value = "";
   }
 };
 
@@ -59,6 +59,6 @@ loginForm.addEventListener("submit", (e) => {
   login(e);
 });
 
-addMessageForm.addEventListener("submin", (e) => {
+addMessageForm.addEventListener("submit", (e) => {
   sendMessage(e);
 });
