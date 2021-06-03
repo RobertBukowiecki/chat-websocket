@@ -44,11 +44,12 @@ function addMessage(author, content) {
   const message = document.createElement("li");
   message.classList.add("message");
   message.classList.add("message--received");
+  console.log(message);
   if (author === userName) message.classList.add("message--self");
   message.innerHTML = `
     <h3 class="message__author">${userName === author ? "You" : author}</h3>
     <div class=${
-      author == "Chat Bot" ? "message_content-bot" : "message_content"
+      author == "Chat Bot" ? "message_content_bot" : "message__content"
     }>
       ${content}
     </div>

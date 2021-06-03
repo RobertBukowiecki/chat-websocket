@@ -100,7 +100,7 @@ p {
   max-width: 200px;
 }
 
-.message_content-bot {
+.message_content_bot {
   background: rgb(68, 68, 68);
   border: none;
   border-radius: 15px 5px 15px 15px;
