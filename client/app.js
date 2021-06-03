@@ -7,6 +7,16 @@ const selectors = {
   messageContentInput: "message-content",
 };
 
+const socket = io();
+
+socket.on("message", ({ author, content }) => addMessage(author, content));
+socket.on("userConnect", (name) =>
+  addMessage("Chat Bot", `${name} has joined the conversation!`)
+);
+socket.on("userDisconnect", (name) =>
+  addMessage("Chat Bot", `${name} has left the conversation... :(`)
+);
+
 const loginForm = document.getElementById(selectors.loginForm);
 const messagesSection = document.getElementById(selectors.messagesSection);
 const messagesList = document.getElementById(selectors.messagesList);
@@ -24,6 +34,7 @@ const login = (e) => {
     userName = userNameInput.value;
     loginForm.classList.remove("show");
     messagesSection.classList.add("show");
+    socket.emit("join", { author: userName });
   } else {
     alert("You must type your name");
   }
@@ -36,7 +47,9 @@ function addMessage(author, content) {
   if (author === userName) message.classList.add("message--self");
   message.innerHTML = `  
     <h3 class="message__author">${userName === author ? "You" : author}</h3>
-    <div class="message__content">
+          <div class=${
+            author == "Chat Bot" ? "message_content-bot" : "message_content"
+          }>
       ${content}
     </div>
   `;
@@ -51,6 +64,10 @@ const sendMessage = (e) => {
     alert("Type your message");
   } else {
     addMessage(userName, messageContent);
+    socket.emit("message", {
+      author: userName,
+      content: messageContent,
+    });
     messageContentInput.value = "";
   }
 };
