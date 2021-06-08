@@ -9,9 +9,11 @@
     "socket.io": "2.2.0"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "express": "^4.17.1",
+    "socket.io": "2.2.0"
   }
 }
